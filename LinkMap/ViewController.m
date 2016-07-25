@@ -49,7 +49,10 @@
 
 - (IBAction)chooseFile:(id)sender {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
-    [panel setDirectoryURL:[NSURL URLWithString:@"~/Library/Developer/Xcode/DerivedData/"]];
+    if (panel.directoryURL == nil) {
+        panel.directoryURL = [NSURL URLWithString:@"~/Library/Developer/Xcode/DerivedData/"];
+    }
+    [panel setDirectoryURL:panel.directoryURL];
     panel.allowsMultipleSelection = NO;
     panel.canChooseDirectories = NO;
     panel.resolvesAliases = NO;
@@ -65,10 +68,14 @@
 }
 
 - (IBAction)analyze:(id)sender {
+    
     if (!_linkMapFileURL || ![[NSFileManager defaultManager] fileExistsAtPath:[_linkMapFileURL path] isDirectory:nil]) {
         [self showAlertWithText:@"请选择正确的Link Map文件路径"];
         return;
     }
+    
+    //清空result
+    [_result deleteCharactersInRange:NSMakeRange(0, _result.length-1)];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString *content = [NSString stringWithContentsOfURL:_linkMapFileURL encoding:NSMacOSRomanStringEncoding error:nil];

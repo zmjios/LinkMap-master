@@ -30,11 +30,3 @@ XCode -> Project -> Build Settings -> 把Write Link Map File选项设为yes，�
 默认的文件地址：~/Library/Developer/Xcode/DerivedData/XXX-xxxxxxxxxxxxx/Build/Intermediates/XXX.build/Debug-iphoneos/XXX.build/ \n\
 
 
-## 联系我
-
-如有问题或建议欢迎通过邮件联系我
-67111677@qq.com
-
-## 最后
-
-如果喜欢，请顺手我一个star吧~  ：）
